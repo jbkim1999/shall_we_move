@@ -1,5 +1,7 @@
 # Shall We Move - SUI Move Language API Tutorial (Hackathon Edition)
 
+![move_demo](https://github.com/jbkim1999/shall_we_move/assets/47150423/c82d5a15-7912-4f66-84c6-287a5570beee)
+
 Welcome to our hackathon project! We've developed a tutorial website for the SUI Move Language API. This interactive tutorial primarily focuses on teaching users to buy Non-Fungible Tokens (NFTs) in gaming marketplaces using the API.
 
 ## Table of Contents

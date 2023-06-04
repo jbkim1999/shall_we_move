@@ -27,6 +27,7 @@ app.add_middleware(
 def add_item():
     equipment_type = random.randint(1,5)
     command_str = "sui client call --package " + PACKAGE + " --module purchase --function add_item --args "+ GAMEINFO + " " + str(equipment_type) + " --gas-budget 10000000" 
+    print(command_str)
     os.system(command_str)
     os.system("sh ./sms.sh")
     return 1
@@ -34,6 +35,7 @@ def add_item():
 @app.get("/transfer")
 def transfer_item(item):
     command_str = "sui client call --package " + PACKAGE + " --module purchase --function transfer_item --args "+ item +" "+ PLAYER + " --gas-budget 10000000"
+    print(command_str)
     os.system(command_str)
 
 if __name__ == "__main__":

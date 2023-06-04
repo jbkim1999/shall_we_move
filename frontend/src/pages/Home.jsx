@@ -29,6 +29,10 @@ const Home = () => {
         loadObjects(config.PLAYER_ADDRESS, false);
     }, []);
 
+    function selectItem(id) {
+        setAdded(false);
+        setSelectedItem(id);
+    }
     /* Loads coin balance for a given account */
     async function loadBalance(address) {
         const response = await axios.post(config.TESTNET_ENDPOINT, {
@@ -139,7 +143,6 @@ const Home = () => {
     }
 
     const handleAddItems = () => {
-        
         axios({
             method: 'get',
             url: 'http://localhost:1234/add_item',
@@ -349,7 +352,7 @@ const Home = () => {
                             }}>
                             {/* <Button variant="contained" onClick={() => refreshList(config.OWNER_ADDRESS)}>Refresh List</Button> */}
                             <Button variant="contained" onClick={handleAddItems}>Add Item</Button>
-                            <Button variant="contained" onClick={handleBuyItem}>Buy Item</Button>
+                            <Button variant="contained" onClick={() => handleBuyItem(selectedItem) }>Buy Item</Button>
                             <Typography variant="h6">Player's balance: {moneyLeft}</Typography>
                             
                             {/* <Button variant="contained" onClick={handleAddBalance}>Add Balance + </Button> */}
@@ -361,12 +364,15 @@ const Home = () => {
                     <ImageList // shopping list
                         sx={{ width: 400, height: 330 }} cols={3} rowHeight={164}>
                         {ownerObjects.map((obj) => (
+                            // <ImageListItem key={obj.id}>
+                            //     <img src={require(`../assets/${obj.e_type}.png`)} onClick={() => {
+                            //         setAdded(false);
+                            //         setSelectedItem(obj.id);
+                            //         }}/>
+                            // </ImageListItem>       
                             <ImageListItem key={obj.id}>
-                                <img src={require(`../assets/${obj.e_type}.png`)} onClick={() => {
-                                    setAdded(false);
-                                    setSelectedItem(obj.id);
-                                    }}/>
-                            </ImageListItem>       
+                            <img src={require(`../assets/${obj.e_type}.png`)} onClick={() => selectItem(obj.id)}/>
+                        </ImageListItem>   
                         )
                         )}
                     </ImageList>

@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import os
 import json
+import random
 
 app = FastAPI()
 
@@ -24,7 +25,8 @@ app.add_middleware(
 
 @app.get("/add_item")
 def add_item():
-    command_str = "sui client call --package " + PACKAGE + " --module purchase --function add_item --args "+ GAMEINFO + " 2 --gas-budget 10000000" 
+    equipment_type = random.randint(1,5)
+    command_str = "sui client call --package " + PACKAGE + " --module purchase --function add_item --args "+ GAMEINFO + " " + str(equipment_type) + " --gas-budget 10000000" 
     os.system(command_str)
     return 1
 

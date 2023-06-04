@@ -1,4 +1,5 @@
-# Shall We Move - Working Demo of Move Object in NFT trading market (Hackathon Edition)
+# Shall We Move 
+## Working Demo of Move Object in game item trading market
 
 ![move_demo](https://github.com/jbkim1999/shall_we_move/assets/47150423/c82d5a15-7912-4f66-84c6-287a5570beee)
 

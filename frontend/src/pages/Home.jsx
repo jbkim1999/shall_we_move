@@ -20,7 +20,8 @@ const Home = () => {
     const [playerObjects, setPlayerObjects] = useState([]);
     const [log, setLog] = useState("Sui log line to be printed...");
 
-    const [selectedOrAdded, setSelectedOrAdded] = useState(0); // selected : 0 , added : 1
+    const [selectedOrPurchased, setSelectedOrPurchased] = useState(false); // selected : false , purchased : true
+    const [added, setAdded] = useState(false);
 
     useEffect(() => {
         loadBalance(config.PLAYER_ADDRESS);
@@ -115,14 +116,16 @@ const Home = () => {
 
     /* Equips item to the corresponding slot in the player's equipment */
     const handleEquipItem = (e_type, id) => {
+        
         setEquippedItems((prevEquippedItems) => ({
             ...prevEquippedItems,
             [`${e_type}`]: {
                 img: require(`../assets/${e_type}.png`)
             }
         }))
+        setAdded(false);
         setSelectedItem(id);
-        setSelectedOrAdded(0);
+        setSelectedOrPurchased(false);
         // console.log(equippedItems)
     };
 
@@ -136,15 +139,17 @@ const Home = () => {
     }
 
     const handleAddItems = () => {
+        
         axios({
             method: 'get',
             url: 'http://localhost:1234/add_item',
           }).then((response) => {
             console.log("add items\n",response);
+            setAdded(true);
             setLog(response)
             loadObjects(config.OWNER_ADDRESS, true);
             loadObjects(config.PLAYER_ADDRESS, false);
-            setSelectedOrAdded(1);
+            setSelectedItem("")
           }, (error) => {
             console.log(error);
           });
@@ -157,9 +162,12 @@ const Home = () => {
             method: 'get',
             url: url,
           }).then((response) => {
+            setAdded(false);
             console.log(response);
             loadObjects(config.OWNER_ADDRESS, true);
             loadObjects(config.PLAYER_ADDRESS, false);
+            setSelectedOrPurchased(true);
+            ;
           }, (error) => {
             console.log(error);
           });
@@ -341,11 +349,12 @@ const Home = () => {
                             }}>
                             {/* <Button variant="contained" onClick={() => refreshList(config.OWNER_ADDRESS)}>Refresh List</Button> */}
                             <Button variant="contained" onClick={handleAddItems}>Add Items</Button>
+                            <Button variant="contained" onClick={handleBuyItem}>Buy Items</Button>
                             <Typography variant="h6">Player's balance: {moneyLeft}</Typography>
                             
                             {/* <Button variant="contained" onClick={handleAddBalance}>Add Balance + </Button> */}
                         </Box>
-                        <Typography>{selectedOrAdded ? "Added Item" : "Selected Item"} : {selectedItem}</Typography>
+                        <Typography>{added ? "Item is Added" : selectedOrPurchased ? "Purchased Item : " : "Selected Item : "}{selectedItem}</Typography>
                     </Box>
                     
 
@@ -353,7 +362,10 @@ const Home = () => {
                         sx={{ width: 400, height: 330 }} cols={3} rowHeight={164}>
                         {ownerObjects.map((obj) => (
                             <ImageListItem key={obj.id}>
-                                <img src={require(`../assets/${obj.e_type}.png`)} onClick={() => handleBuyItem(obj.id)}/>
+                                <img src={require(`../assets/${obj.e_type}.png`)} onClick={() => {
+                                    setAdded(false);
+                                    setSelectedItem(obj.id);
+                                    }}/>
                             </ImageListItem>       
                         )
                         )}
@@ -379,7 +391,7 @@ const Home = () => {
                         {playerObjects.map((obj) => (
                             <Box key={obj.img} sx={{ 
                                 marginRight: 0.5,
-                                border: obj.id === selectedItem ? '2px solid red' : 'none'
+                                border: obj.id === selectedItem ? '5px solid red' : 'none'
                                 }}>
                                 <img
                                     // src={`${obj.img}?w=164&h=164&fit=crop&auto=format`}

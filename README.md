@@ -1,4 +1,4 @@
-<h1><strong>Shall We Move</strong></h1> <h2> Working Demo of Move Object in game item trading market</h2>
+<h1><strong>Shall We Move</strong></h1> <h2> Working Demo of Move Object that can be implemented in gaming platforms </h2>
 
 
 ![move_demo](https://github.com/jbkim1999/shall_we_move/assets/47150423/c82d5a15-7912-4f66-84c6-287a5570beee)

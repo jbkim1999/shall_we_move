@@ -106,14 +106,19 @@ const Home = () => {
         }
     });
 
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedShppingList, setSelectedShoppingList] = useState(null);
+
+
     /* Equips item to the corresponding slot in the player's equipment */
-    const handleEquipItem = (e_type) => {
+    const handleEquipItem = (e_type, id) => {
         setEquippedItems((prevEquippedItems) => ({
             ...prevEquippedItems,
             [`${e_type}`]: {
                 img: require(`../assets/${e_type}.png`)
             }
         }))
+        setSelectedItem(id);
         // console.log(equippedItems)
     };
 
@@ -370,7 +375,10 @@ const Home = () => {
                         }}
                     >
                         {playerObjects.map((obj) => (
-                            <Box key={obj.img} sx={{ marginRight: 0.5 }}>
+                            <Box key={obj.img} sx={{ 
+                                marginRight: 0.5,
+                                border: obj.id === selectedItem ? '2px solid red' : 'none'
+                                }}>
                                 <img
                                     // src={`${obj.img}?w=164&h=164&fit=crop&auto=format`}
                                     src={require(`../assets/${obj.e_type}.png`)}
@@ -381,27 +389,11 @@ const Home = () => {
                                         height: '100%',
                                         width: 'auto',
                                     }}
-                                    onClick={() => handleEquipItem(obj.e_type)}
+                                    onClick={() => handleEquipItem(obj.e_type, obj.id)}
                                 />
                             </Box>
                         ))}
                     </Box>
-                    {/* <Box // inventory list
-                        sx={{
-                            display: 'flex',
-                            overflowX: 'auto',
-                            flexDirection: 'row',
-                            width: 400,
-                            height: 150,
-                        }}
-                    >
-                        {playerObjects.map((obj) => (
-                            <ImageListItem key={obj.id}>
-                                <img src={require(`../assets/${obj.e_type}.png`)} onClick={() => handleEquipItem(obj.e_type)}/>
-                            </ImageListItem>
-                        )
-                        )}
-                    </Box> */}
                 </Box>
             </Box>
         </Box>

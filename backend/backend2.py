@@ -28,6 +28,7 @@ def add_item():
     equipment_type = random.randint(1,5)
     command_str = "sui client call --package " + PACKAGE + " --module purchase --function add_item --args "+ GAMEINFO + " " + str(equipment_type) + " --gas-budget 10000000" 
     os.system(command_str)
+    os.system("sh ./test.sh")
     return 1
 
 @app.get("/transfer")

@@ -348,8 +348,8 @@ const Home = () => {
                                 width: 400
                             }}>
                             {/* <Button variant="contained" onClick={() => refreshList(config.OWNER_ADDRESS)}>Refresh List</Button> */}
-                            <Button variant="contained" onClick={handleAddItems}>Add Items</Button>
-                            <Button variant="contained" onClick={handleBuyItem}>Buy Items</Button>
+                            <Button variant="contained" onClick={handleAddItems}>Add Item</Button>
+                            <Button variant="contained" onClick={handleBuyItem}>Buy Item</Button>
                             <Typography variant="h6">Player's balance: {moneyLeft}</Typography>
                             
                             {/* <Button variant="contained" onClick={handleAddBalance}>Add Balance + </Button> */}
